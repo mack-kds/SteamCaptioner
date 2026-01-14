@@ -212,6 +212,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- [Deepgram](https://deepgram.com/) for their excellent speech-to-text API
+- [Deepgram](https://deepgram.com/) for their excellent speech-to-text API 
 - [FastAPI](https://fastapi.tiangolo.com/) for the web framework
 - [vMix](https://www.vmix.com/) for broadcast production software
