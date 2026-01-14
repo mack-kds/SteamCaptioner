@@ -2,6 +2,7 @@
 
 import urllib.parse
 import urllib.request
+import urllib.error
 import threading
 from typing import Optional
 
@@ -42,10 +43,23 @@ class VMixClient:
             req = urllib.request.Request(url, method='GET')
             with urllib.request.urlopen(req, timeout=5) as response:
                 if response.status == 200:
+                    # Read response to check it's valid vMix
+                    body = response.read().decode('utf-8', errors='ignore')
                     self._connected = True
                     print(f"Connected to vMix HTTP API at {self.host}:{self.port}")
                     return True
+        except urllib.error.HTTPError as e:
+            print(f"Failed to connect to vMix: HTTP {e.code}")
+        except urllib.error.URLError as e:
+            print(f"Failed to connect to vMix: {e.reason}")
         except Exception as e:
+            # Check if this is actually a success response being misinterpreted
+            error_str = str(e)
+            if "VERSION OK" in error_str:
+                # This is actually a success!
+                self._connected = True
+                print(f"Connected to vMix HTTP API at {self.host}:{self.port}")
+                return True
             print(f"Failed to connect to vMix: {e}")
 
         self._connected = False
@@ -117,10 +131,27 @@ class VMixClient:
 
                 req = urllib.request.Request(url, method='GET')
                 with urllib.request.urlopen(req, timeout=5) as response:
-                    return response.status == 200
+                    # vMix returns 200 for successful commands
+                    # Response body may contain "Function completed successfully."
+                    # or version info - both are OK
+                    if response.status == 200:
+                        return True
+                    return False
 
+            except urllib.error.HTTPError as e:
+                # HTTP errors (4xx, 5xx) are actual failures
+                print(f"vMix API HTTP error: {e.code} {e.reason}")
+                return False
+            except urllib.error.URLError as e:
+                # Connection errors
+                print(f"vMix API connection error: {e.reason}")
+                return False
             except Exception as e:
-                print(f"vMix API error: {e}")
+                # Only log unexpected errors
+                error_str = str(e)
+                # "VERSION OK" responses are actually success, not errors
+                if "VERSION OK" not in error_str:
+                    print(f"vMix API error: {e}")
                 return False
 
     @property
