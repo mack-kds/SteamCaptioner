@@ -99,6 +99,7 @@ class DeepgramTranscriber:
                 smart_format=True,
                 interim_results=True,
                 punctuate=True,
+                profanity_filter=True,  # Replace profanity with asterisks
                 encoding="linear16",
                 sample_rate=16000,
                 channels=1,
