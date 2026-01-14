@@ -30,7 +30,7 @@ Real-time live captioning system for streaming and broadcast production. Capture
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/StreamCaptioner.git
+   git clone https://github.com/mack-kds/SteamCaptioner.git
    cd StreamCaptioner
    ```
 
