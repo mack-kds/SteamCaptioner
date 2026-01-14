@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Captions - StreamCaptioner</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Live Captions</h1>
+            <div class="controls">
+                <select id="feed-selector" aria-label="Select caption feed">
+                    <option value="">Loading feeds...</option>
+                </select>
+                <button id="settings-btn" aria-label="Open settings">⚙️</button>
+            </div>
+        </div>
+        <div id="connection-status" class="status-disconnected">Connecting...</div>
+    </header>
+    
+    <main>
+        <div id="caption-container">
+            <div id="caption-scroll" aria-live="polite" aria-label="Live captions">
+                <!-- Captions will be added here, newest at top -->
+            </div>
+        </div>
+
+        <button id="return-to-live" class="hidden" aria-label="Return to live captions">
+            ↓ Jump to Latest
+        </button>
+    </main>
+    
+    <aside id="settings-panel" class="hidden" role="dialog" aria-label="Accessibility settings">
+        <div class="settings-header">
+            <h2>Accessibility Settings</h2>
+            <button id="close-settings" aria-label="Close settings">✕</button>
+        </div>
+        
+        <div class="setting-group">
+            <label for="font-family">Font Family:</label>
+            <select id="font-family">
+                <option value="system-ui, sans-serif">System Default</option>
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Courier New', monospace">Courier New</option>
+                <option value="OpenDyslexic, sans-serif">OpenDyslexic</option>
+            </select>
+        </div>
+        
+        <div class="setting-group">
+            <label for="font-size">Font Size: <span id="font-size-value">32px</span></label>
+            <input type="range" id="font-size" min="16" max="96" value="32">
+        </div>
+        
+        <div class="setting-group">
+            <label for="text-color">Text Color:</label>
+            <input type="color" id="text-color" value="#ffffff">
+        </div>
+        
+        <div class="setting-group">
+            <label for="bg-color">Background Color:</label>
+            <input type="color" id="bg-color" value="#000000">
+        </div>
+        
+        <div class="setting-group">
+            <label for="high-contrast">
+                <input type="checkbox" id="high-contrast">
+                High Contrast Mode
+            </label>
+        </div>
+        
+        <div class="setting-group">
+            <label for="show-interim">
+                <input type="checkbox" id="show-interim" checked>
+                Show Partial Captions
+            </label>
+        </div>
+        
+        <div class="settings-actions">
+            <button id="reset-settings">Reset to Defaults</button>
+        </div>
+    </aside>
+    
+    <div id="overlay" class="hidden"></div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>
+

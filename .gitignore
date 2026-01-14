@@ -1,0 +1,25 @@
+# Environment
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Output
+output/
+*.log
+
+# Config with secrets
+config.json
+
+# Build
+dist/
+build/
+*.egg-info/
+*.spec
+

@@ -1,0 +1,37 @@
+{
+    "audio": {
+        "device_name": "Focusrite",
+        "sample_rate": 16000,
+        "channels": 2,
+        "chunk_size": 4096
+    },
+    "feeds": [
+        {
+            "id": "announcements",
+            "name": "Announcements",
+            "channel": 0,
+            "vmix_input": "Announcements_Caption",
+            "enabled": true
+        },
+        {
+            "id": "referee_main",
+            "name": "Referee - Main Field",
+            "channel": 1,
+            "vmix_input": "Referee_Caption",
+            "enabled": true
+        }
+    ],
+    "vmix": {
+        "host": "127.0.0.1",
+        "port": 8099,
+        "enabled": true,
+        "file_output_enabled": true,
+        "file_output_dir": "output/captions"
+    },
+    "web": {
+        "host": "0.0.0.0",
+        "port": 8080
+    },
+    "caption_history_minutes": 10
+}
+
