@@ -107,7 +107,10 @@ class VMixClient:
         Returns:
             True if successful, False otherwise.
         """
-        return self.set_text(input_name, text, selected_index=0)
+        result = self.set_text(input_name, text, selected_index=0)
+        if not result:
+            print(f"[vMix] Failed to set text on '{input_name}'")
+        return result
 
     def _send_api_command(self, function: str, **params) -> bool:
         """
@@ -149,9 +152,10 @@ class VMixClient:
             except Exception as e:
                 # Only log unexpected errors
                 error_str = str(e)
-                # "VERSION OK" responses are actually success, not errors
-                if "VERSION OK" not in error_str:
-                    print(f"vMix API error: {e}")
+                # "VERSION OK" or "Function completed" responses are actually success
+                if "VERSION OK" in error_str or "completed" in error_str.lower():
+                    return True
+                print(f"vMix API error: {e}")
                 return False
 
     @property
